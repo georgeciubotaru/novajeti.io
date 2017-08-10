@@ -1,0 +1,37 @@
+@function capitalize($string)
+{
+	@return to_upper_case(str_slice($string,1,1) + str_slice($string,2));
+}
+
+@function transparent()
+{
+	@return rgba(0,0,0,0);
+}
+
+@function calculateRem($size)
+{
+	$_rem-size: $size / 16px;
+	@return $_rem-size * 1rem;
+}
+
+@function generate-columns-list($type)
+{
+	$list: '.#{$type}1';
+	
+	@for $i from 2 through $grid-columns
+	{
+		$list: append($list, '.#{$type}#{$i}', comma);
+	}
+	
+	@return $list;
+}
+
+@function img-url($string,$extension:'png')
+{
+	@return url('#{$img-path}#{$string}.#{$extension}')
+}
+
+@function column-width($container-width,$columns:$grid-columns,$gutter:$gutter-size)
+{
+	@return ($container-width - $gutter * ($columns - 1)) / $columns;
+}
