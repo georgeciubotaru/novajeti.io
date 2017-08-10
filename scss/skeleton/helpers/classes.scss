@@ -1,0 +1,41 @@
+[class*='-center']
+{
+	text-align: center;
+}
+
+[class*='-left']
+{
+	text-align: left;
+}
+
+[class*='-right']
+{
+	text-align: right;
+}
+
+
+[class*='-primary']
+{
+	background: $primary-color;
+}
+
+[class*='-success']
+{
+	background: $success-color;
+}
+
+[class*='-error']
+{
+	background: $error-color;
+}
+
+[class*='-warning']
+{
+	background: $warning-color;
+}
+
+.uppercase
+{
+	text-transform: uppercase;
+}
+

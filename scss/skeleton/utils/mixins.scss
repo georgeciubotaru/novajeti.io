@@ -1,0 +1,83 @@
+@mixin clear-fix()
+{
+	&:before,
+	&:after
+	{
+		content: ''; // 1
+		display: table; // 2
+	}
+	
+	&:after
+	{
+		clear: both;
+	}
+}
+
+@mixin font-item($name, $type, $weight)
+{
+	$path: #{if(global_variable_exists($fonts-path), $fonts-path, '/assets/fonts/') + capitalize($name)+ '/'};
+	
+	@font-face
+	{
+		font-family: '#{capitalize($name)}';
+		font-weight: $weight;
+		src: url('#{$path}#{$name}-#{$type}.eot');
+		src: url('#{$path}#{$name}-#{$type}.eot?#iefix') format('embedded-opentype'),
+		url('#{$path}#{$name}-#{$type}.woff') format('woff'),
+		url('#{$path}#{$name}-#{$type}.ttf') format('truetype'),
+		url('#{$path}#{$name}-#{$type}.svg##{$name}') format('svg');
+		font-style: normal;
+		font-display: swap;
+	}
+}
+
+@mixin img-url($string,$extension:'png')
+{
+	background-image: img-url($string, $extension);
+	
+	@media(min-device-pixel-ratio: 2), (min-resolution: 192dpi)
+	{
+		$string: #{$string + '@2x'};
+		background-image: img-url($string, $extension);
+	}
+}
+
+@mixin font-details($size,$weight,$font-family:$default-font-family)
+{
+	font-family: $font-family;
+	@if($allow-rem-size)
+	{
+		font-size: $size;
+		font-size: calculateRem($size);
+	}
+	@else
+	{
+		font-size: $size;
+	}
+	font-weight: $weight;
+}
+
+@mixin placeholder() {
+	&::-webkit-input-placeholder
+	{
+		@content
+	}
+	&:-moz-placeholder
+	{
+		@content
+	}
+	&::-moz-placeholder
+	{
+		@content
+	}
+	&:-ms-input-placeholder
+	{
+		@content
+	}
+}
+
+@mixin auto-alignment-margin()
+{
+	margin-left: auto;
+	margin-right: auto;
+}

@@ -1,0 +1,105 @@
+@mixin set-default-container($gutter: $gutter-size)
+{
+	position: relative;
+	max-width: $container-max-width;
+	padding-right: ceil(($gutter / 2));
+	padding-left: floor(($gutter / 2));
+	@include auto-alignment-margin;
+	@include clear-fix;
+}
+
+@mixin make-row($gutter: $gutter-size)
+{
+	margin-right: floor(($gutter / -2));
+	margin-left: ceil(($gutter / -2));
+	@include clear-fix;
+}
+
+@mixin make-columns($type,$i: 1)
+{
+	#{generate-columns-list($type)}
+	{
+		position: relative;
+		float: left;
+		min-height: 1px;
+		padding-right: floor(($gutter-size / 2));
+		padding-left: ceil(($gutter-size / 2));
+	}
+	
+	@each $item in generate-columns-list($type)
+	{
+		#{$item}
+		{
+			width: percentage(($i / $grid-columns));
+		}
+		$i:$i+1;
+	}
+}
+
+@mixin generate-grid()
+{
+	.container
+	{
+		@include set-default-container;
+		
+		@media (max-width: $tablet-screen-min)
+		{
+			width: $container-sm-screen;
+		}
+		@media (min-width: $tablet-screen-min)
+		{
+			width: $container-tb-screen;
+		}
+		@media (min-width: $medium-screen-min)
+		{
+			width: $container-md-screen;
+		}
+		@media (min-width: $large-screen-min)
+		{
+			width: $container-lg-screen;
+		}
+		@media (min-width: $extra-large-screen-min)
+		{
+			width: $container-xl-screen;
+		}
+	}
+	
+	.container-fluid
+	{
+		@include set-default-container;
+	}
+	
+	.row
+	{
+		@include make-row;
+	}
+	
+	@include make-columns(xs);
+	
+	@media (min-width: $small-screen-min)
+	{
+		@include make-columns(sm);
+	}
+	
+	@media (min-width: $tablet-screen-min)
+	{
+		@include make-columns(tb);
+	}
+	
+	@media (min-width: $medium-screen-min)
+	{
+		@include make-columns(md);
+	}
+	
+	@media (min-width: $large-screen-min)
+	{
+		@include make-columns(lg);
+	}
+	
+	@media (min-width: $extra-large-screen-min)
+	{
+		@include make-columns(xl);
+	}
+}
+
+@include generate-grid;
