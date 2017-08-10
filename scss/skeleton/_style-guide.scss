@@ -1,0 +1,69 @@
+// The correct order of using property along the website
+
+/* Extend placeholders
+
+	@extend
+*/
+
+/* Position properties
+	position
+	content
+	display
+	visibility
+	z-index
+	cursor
+	pointer-events
+	user-select
+*/
+
+/* Size properties
+	width
+	height
+	min,max attributes
+*/
+
+/*Offset properties
+	padding
+	margin
+	left,right,bottom,top
+	float
+	overflow
+	vertical-align
+	justify-content
+	align-items
+*/
+
+/* Font & alignment
+	font: size | family | weight | style
+	text: align | transform | shadow | decoration | overflow
+	line-height
+	letter-spacing
+	white-space
+*/
+
+/*Colors & Background
+	background: size | color | image | position  | repeat | linear | radial | circle
+	color
+	opacity
+	outline
+	border: width | style | radius
+	box-shadow
+*/
+
+/*Animation & transform
+	animation: name | duration | direction | iteration-count | timing
+	transform: scale | perspective | rotate | translate | matrix
+*/
+
+/* Transition
+	transition: property | delay | duration | timing
+*/
+
+// Use kebab-case for vars,classes, mixin,function.
+// Use transparent @function instead transparent value to work around IE bug.
+// Use border:0 over border:none.
+// Don't use literal width like (width: 100px), use variables.
+// Avoid deeply nesting (maximum-depth: 3).
+// For private vars use underscore prefix.
+// Limit the number of properties in a rule set use reusable components ( property-count: 10).
+
