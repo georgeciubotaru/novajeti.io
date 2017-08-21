@@ -1,6 +1,6 @@
 {
   "name": "novajeti.io",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "Superheroic sass skeleton library. Responsive Boilerplate for Mobile-Friendly Development",
   "repository": {
     "type": "git",
@@ -24,7 +24,7 @@
     "url": "https://github.com/georgeciubotaru/novajeti.io/issues"
   },
   "homepage": "https://github.com/georgeciubotaru/novajeti.io#readme",
-  "devDependencies": {
+  "dependencies": {
     "normalize.css": "^7.0.0"
   }
 }
