@@ -1,0 +1,30 @@
+{
+  "name": "novajeti.io",
+  "version": "1.0.0",
+  "description": "Superheroic sass skeleton library. Responsive Boilerplate for Mobile-Friendly Development",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/georgeciubotaru/novajeti.io.git"
+  },
+  "keywords": [
+    "sass",
+    "scss",
+    "lint",
+    "skeleton",
+    "library",
+    "mixin",
+    "function",
+    "placeholder",
+    "grid",
+    "assets"
+  ],
+  "author": "George Ciubotaru",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/georgeciubotaru/novajeti.io/issues"
+  },
+  "homepage": "https://github.com/georgeciubotaru/novajeti.io#readme",
+  "devDependencies": {
+    "normalize.css": "^7.0.0"
+  }
+}
