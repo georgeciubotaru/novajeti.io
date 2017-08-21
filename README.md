@@ -4,6 +4,7 @@
 
 ## Table of Contents
 
+1. [Getting started](#getting-started)
 1. [Terminology](#terminology)
     - [Rule Declaration](#rule-declaration)
     - [Selectors](#selectors)
@@ -24,6 +25,12 @@
     - [Property order](#property-order)
     - [Extend directive](#extend-directive)
     - [Nested selectors](#nested-selectors)
+
+## Getting started
+
+There are a couple ways to download Skeleton:
+- [Download the zip](https://github.com/georgeciubotaru/novajeti.io/archive/dev.zip)
+- Clone the repo: `git clone https://github.com/georgeciubotaru/novajeti.io.git`
 
 ## Terminology
 
