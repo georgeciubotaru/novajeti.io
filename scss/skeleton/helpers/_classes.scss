@@ -1,41 +1,39 @@
-[class*='-center']
+@each $name, $value in $text-alignments
 {
-	text-align: center;
+	[class*='-#{$name}']
+	{
+		text-align: $value;
+	}
 }
 
-[class*='-left']
+@each $name, $value in $color-types
 {
-	text-align: left;
-}
-
-[class*='-right']
-{
-	text-align: right;
-}
-
-
-[class*='-primary']
-{
-	background: $primary-color;
-}
-
-[class*='-success']
-{
-	background: $success-color;
-}
-
-[class*='-error']
-{
-	background: $error-color;
-}
-
-[class*='-warning']
-{
-	background: $warning-color;
+	[class*='-#{$name}']
+	{
+		background-color: $value;
+	}
+	
+	[class*='#{$name}']
+	{
+		color: $value;
+	}
 }
 
 .uppercase
 {
 	text-transform: uppercase;
+}
+
+.no-bullet
+{
+	list-style-type: none;
+}
+
+.inline
+{
+	li
+	{
+		display: inline-block;
+	}
 }
 
