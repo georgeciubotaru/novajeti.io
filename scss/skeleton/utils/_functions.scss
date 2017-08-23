@@ -10,9 +10,9 @@
 
 @function color($key)
 {
-	@if map_has_key($color-pallete, $key)
+	@if map_has_key($color-palette, $key)
 	{
-		@return map_get($color-pallete, $key);
+		@return map_get($color-palette, $key);
 	}
 	
 	@warn "Unknown `#{$key}` in $color-pallete.";
