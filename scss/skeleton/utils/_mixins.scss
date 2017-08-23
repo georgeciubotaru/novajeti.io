@@ -42,13 +42,28 @@
 	}
 }
 
+@mixin svg($string)
+{
+	@include img-url($string,'svg');
+}
+
+@mixin png($string)
+{
+	@include img-url($string);
+}
+
+@mixin jpg($string)
+{
+	@include img-url($string,'jpg');
+}
+
 @mixin font-details($size,$weight,$font-family:$default-font-family)
 {
 	font-family: $font-family;
 	@if($allow-rem-size)
 	{
 		font-size: $size;
-		font-size: calculateRem($size);
+		font-size: use-rem($size);
 	}
 	@else
 	{
