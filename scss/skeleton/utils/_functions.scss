@@ -5,10 +5,32 @@
 
 @function transparent()
 {
-	@return rgba(0,0,0,0);
+	@return rgba(0, 0, 0, 0);
 }
 
-@function calculateRem($size)
+@function color($key)
+{
+	@if map_has_key($color-pallete, $key)
+	{
+		@return map_get($color-pallete, $key);
+	}
+	
+	@warn "Unknown `#{$key}` in $color-pallete.";
+	@return null;
+}
+
+@function index($key)
+{
+	@if map_has_key($z-index, $key)
+	{
+		@return map_get($z-index, $key);
+	}
+	
+	@warn "Unknow `#{$key}` in $z-index.";
+	@return null;
+}
+
+@function use-rem($size)
 {
 	$_rem-size: $size / 16px;
 	@return $_rem-size * 1rem;
@@ -29,6 +51,21 @@
 @function img-url($string,$extension:'png')
 {
 	@return url('#{$img-path}#{$string}.#{$extension}')
+}
+
+@function svg($string)
+{
+	@return img-url($string, 'svg');
+}
+
+@function png($string)
+{
+	@return img-url($string);
+}
+
+@function jpg($string)
+{
+	@return img-url($string, 'jpg')
 }
 
 @function column-width($container-width,$columns:$grid-columns,$gutter:$gutter-size)
