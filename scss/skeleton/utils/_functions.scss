@@ -38,9 +38,9 @@
 
 @function generate-columns-list($type)
 {
-	$list: '.#{$type}1';
+	$list: ();
 	
-	@for $i from 2 through $grid-columns
+	@for $i from 1 through $grid-columns
 	{
 		$list: append($list, '.#{$type}#{$i}', comma);
 	}
