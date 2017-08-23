@@ -26,9 +26,3 @@ $container-md-screen: if($allow-fixed-container, $medium-screen-min - $gutter-si
 $container-tb-screen: if($allow-fixed-container, $tablet-screen-min - $gutter-size, calc(95% - #{$gutter-size}));
 $container-sm-screen: if($allow-fixed-container, calc(100% - #{$gutter-size}), calc(100% - #{$gutter-size}));
 
-//Helpers
-$primary-color: #007dde;
-$success-color: #4caf50;
-$error-color: #ed443c;
-$warning-color: #ff9800;
-
