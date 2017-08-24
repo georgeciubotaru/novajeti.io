@@ -1,0 +1,20 @@
+$container-size: ();
+@each $name, $layout in map_get($config, layouts)
+{
+	@if (map_get($config, fixed-layout))
+	{
+		@if (map_get($layout,container-percent) == 100)
+		{
+			$container-size: map_set($container-size,
+				$name, calc(#{map_get($layout,container-percent)} - #{map_get($config,gutter)}));
+		} @else
+		{
+			$container-size: map_set($container-size,
+				$name, #{map_get($layout,min) - map_get($config,gutter)});
+		}
+	} @else
+	{
+		$container-size: map-set($container-size,
+			$name, calc(#{map_get($layout,container-percent)} - #{map_get($config,gutter)}));
+	}
+}

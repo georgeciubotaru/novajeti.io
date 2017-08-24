@@ -15,17 +15,17 @@
 
 @mixin font-item($name, $type, $weight)
 {
-	$path: #{if(global_variable_exists($fonts-path), $fonts-path, '/assets/fonts/') + capitalize($name)+ '/'};
+	$path: #{map_get($config,font-path) + capitalize($name)+ '/'};
 	
 	@font-face
 	{
 		font-family: '#{capitalize($name)}';
 		font-weight: $weight;
-		src: url('#{$path}#{$name}-#{$type}.eot');
-		src: url('#{$path}#{$name}-#{$type}.eot?#iefix') format('embedded-opentype'),
-		url('#{$path}#{$name}-#{$type}.woff') format('woff'),
-		url('#{$path}#{$name}-#{$type}.ttf') format('truetype'),
-		url('#{$path}#{$name}-#{$type}.svg##{$name}') format('svg');
+		src: font-url('#{$path}#{$name}-#{$type}.eot');
+		src: font-url('#{$path}#{$name}-#{$type}.eot?#iefix') format('embedded-opentype'),
+		font-url('#{$path}#{$name}-#{$type}.woff') format('woff'),
+		font-url('#{$path}#{$name}-#{$type}.ttf') format('truetype'),
+		font-url('#{$path}#{$name}-#{$type}.svg##{$name}') format('svg');
 		font-style: normal;
 		font-display: swap;
 	}
@@ -44,7 +44,7 @@
 
 @mixin svg($string)
 {
-	@include img-url($string,'svg');
+	@include img-url($string, 'svg');
 }
 
 @mixin png($string)
@@ -54,25 +54,25 @@
 
 @mixin jpg($string)
 {
-	@include img-url($string,'jpg');
+	@include img-url($string, 'jpg');
 }
 
-@mixin font-details($size,$weight,$font-family:$default-font-family)
+@mixin font-details($size,$weight,$font-family:map_get($config,default-font-family))
 {
 	font-family: $font-family;
-	@if($allow-rem-size)
+	@if (map_get($config, rem-unit))
 	{
 		font-size: $size;
 		font-size: use-rem($size);
-	}
-	@else
+	} @else
 	{
 		font-size: $size;
 	}
 	font-weight: $weight;
 }
 
-@mixin placeholder() {
+@mixin placeholder()
+{
 	&::-webkit-input-placeholder
 	{
 		@content
@@ -93,7 +93,7 @@
 
 @mixin auto-alignment-margin()
 {
-	margin :
+	margin:
 	{
 		left: auto;
 		right: auto;

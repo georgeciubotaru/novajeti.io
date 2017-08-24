@@ -1,0 +1,42 @@
+@import "../utils/functions";
+
+$config: (
+	columns: 12,
+	gutter : 30px,
+	max-width: 1890px,
+	layouts: (
+		xs : (
+			max: 599px,
+			container-percent: 100%
+		),
+		sm : (
+			min : 600px,
+			max: 1023px,
+			container-percent: 100%
+		),
+		tb : (
+			min : 1024px,
+			max: 1259px,
+			container-percent: 95%
+		),
+		md : (
+			min : 1260px,
+			max: 1439px,
+			container-percent: 92%
+		),
+		lg : (
+			min : 1440px,
+			max : 1919px,
+			container-percent: 89%
+		),
+		xl : (
+			min : 1920px,
+			container-percent: 85%
+		)
+	),
+	fixed-layout : true,
+	rem-unit: false,
+	font-path : '/assets/fonts/',
+	img-path : '/assets/img/',
+	default-font-family : 'Open Sans'
+) !default;
