@@ -2,7 +2,7 @@
 *
 {
 	box-sizing: border-box;
-	font-family: $default-font-family;
+	font-family: map_get($config, default-font-family);
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 	
 	&:focus

@@ -15,7 +15,7 @@
 		@return map_get($color-palette, $key);
 	}
 	
-	@warn "Unknown `#{$key}` in $color-pallete.";
+	@warn "Unknown `#{$key}` in $color-palette.";
 	@return null;
 }
 
@@ -40,7 +40,7 @@
 {
 	$list: ();
 	
-	@for $i from 1 through $grid-columns
+	@for $i from 1 through map_get($config, columns)
 	{
 		$list: append($list, '.#{$type}#{$i}', comma);
 	}
@@ -50,7 +50,12 @@
 
 @function img-url($string,$extension:'png')
 {
-	@return url('#{$img-path}#{$string}.#{$extension}')
+	@return url('#{map_get($config,img-path)}#{$string}.#{$extension}')
+}
+
+@function font-url($string)
+{
+	@return url('#{$string}');
 }
 
 @function svg($string)
@@ -68,7 +73,22 @@
 	@return img-url($string, 'jpg')
 }
 
-@function column-width($container-width,$columns:$grid-columns,$gutter:$gutter-size)
+@function map-deep-get($map, $keys...)
+{
+	@each $key in $keys
+	{
+		$map: map-get($map, $key);
+	}
+	@return $map;
+}
+
+@function column-width($container-width,$columns:map-get($config,columns),$gutter:map_get($config,gutter))
 {
 	@return ($container-width - $gutter * ($columns - 1)) / $columns;
+}
+
+@function map-set($map, $key, $value)
+{
+	$new: ($key: $value);
+	@return map-merge($map, $new);
 }
