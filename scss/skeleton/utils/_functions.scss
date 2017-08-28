@@ -1,3 +1,5 @@
+@import "map_functions";
+
 @function capitalize($string)
 {
 	@return to_upper_case(str_slice($string,1,1) + str_slice($string,2));
@@ -6,28 +8,6 @@
 @function transparent()
 {
 	@return rgba(0, 0, 0, 0);
-}
-
-@function color($key)
-{
-	@if map_has_key($color-palette, $key)
-	{
-		@return map_get($color-palette, $key);
-	}
-	
-	@warn "Unknown `#{$key}` in $color-palette.";
-	@return null;
-}
-
-@function index($key)
-{
-	@if map_has_key($z-index, $key)
-	{
-		@return map_get($z-index, $key);
-	}
-	
-	@warn "Unknow `#{$key}` in $z-index.";
-	@return null;
 }
 
 @function use-rem($size)
@@ -73,22 +53,28 @@
 	@return img-url($string, 'jpg')
 }
 
-@function map-deep-get($map, $keys...)
-{
-	@each $key in $keys
-	{
-		$map: map-get($map, $key);
-	}
-	@return $map;
-}
-
-@function column-width($container-width,$columns:map-get($config,columns),$gutter:map_get($config,gutter))
+@function column-width($container-width, $columns:map-get($config,columns), $gutter:map_get($config,gutter))
 {
 	@return ($container-width - $gutter * ($columns - 1)) / $columns;
 }
 
-@function map-set($map, $key, $value)
+@function color($keys...)
 {
-	$new: ($key: $value);
-	@return map-merge($map, $new);
+	@if not map_has_keys($color-palette, $keys...)
+	{
+		@return null;
+	}
+	
+	@return map-deep-get($color-palette, $keys...);
+	
+}
+
+@function z-index($keys...)
+{
+	@if not map_has_keys($z-index, $keys...)
+	{
+		@return null;
+	}
+	
+	@return map-deep-get($z-index, $keys...);
 }
