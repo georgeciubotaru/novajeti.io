@@ -4,7 +4,7 @@
 	max-width: map_get($config, max-width);
 	padding-right: ceil(($gutter / 2));
 	padding-left: floor(($gutter / 2));
-	@include auto-alignment-margin;
+	@include push-auto;
 	@include clear-fix;
 }
 
@@ -15,9 +15,7 @@
 	@include clear-fix;
 }
 
-@mixin make-columns($type,$i: 1,
-					$gutter: map_get($config, gutter),
-					$columns : map_get($config, columns))
+@mixin make-columns($type, $i: 1, $gutter: map_get($config, gutter), $columns : map_get($config, columns))
 {
 	#{generate-columns-list($type)}
 	{
