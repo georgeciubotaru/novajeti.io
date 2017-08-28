@@ -1,0 +1,34 @@
+@function map-set($map, $key, $value)
+{
+	$new: ($key: $value);
+	@return map-merge($map, $new);
+}
+
+@function map-deep-get($map, $keys...)
+{
+	@each $key in $keys
+	{
+		$map: map-get($map, $key);
+	}
+	@return $map;
+}
+
+@function map-has-keys($map, $keys...)
+{
+	@each $key in $keys
+	{
+		@if type_of(map_get($map,$key)) == map
+		{
+			$map: map_get($map, $key);
+		} @else
+		{
+			@if not map_get($map,$key)
+			{
+				@error 'The `#{$key}` key doesnt exits';
+				@return false;
+			}
+		}
+	}
+	
+	@return true;
+}
