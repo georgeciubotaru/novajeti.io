@@ -31,7 +31,21 @@
 	}
 }
 
-@mixin img-url($string,$extension:'png')
+@mixin font-details($size, $weight, $font-family:map_get($config,default-font-family))
+{
+	font-family: $font-family;
+	@if (map_get($config, rem-unit))
+	{
+		font-size: $size;
+		font-size: use-rem($size);
+	} @else
+	{
+		font-size: $size;
+	}
+	font-weight: $weight;
+}
+
+@mixin img-url($string, $extension:'png')
 {
 	background-image: img-url($string, $extension);
 	
@@ -57,20 +71,6 @@
 	@include img-url($string, 'jpg');
 }
 
-@mixin font-details($size,$weight,$font-family:map_get($config,default-font-family))
-{
-	font-family: $font-family;
-	@if (map_get($config, rem-unit))
-	{
-		font-size: $size;
-		font-size: use-rem($size);
-	} @else
-	{
-		font-size: $size;
-	}
-	font-weight: $weight;
-}
-
 @mixin placeholder()
 {
 	&::-webkit-input-placeholder
@@ -91,11 +91,47 @@
 	}
 }
 
-@mixin auto-alignment-margin()
+@mixin push-auto()
 {
 	margin:
 	{
 		left: auto;
 		right: auto;
+	}
+}
+
+// Media breakpoint mixin
+@mixin breakpoint($name, $orientation: portrait, $breakpoints: map_get($config, media-breakpoints))
+{
+	@if (map_has_key($breakpoints, $name))
+	{
+		$breakpoint: map_get($breakpoints, $name);
+		
+		@if (map_has_key($breakpoint, min))
+		{
+			@if (map_has_key($breakpoint, max))
+			{
+				@media (min-width: #{map_get($breakpoint,min)}) and (max-width: #{map_get($breakpoint,max)}) and (orientation: $orientation)
+				{
+					@content;
+				}
+			} @else
+			{
+				@media (min-width: #{map_get($breakpoint,min)}) and (orientation: $orientation)
+				{
+					@content;
+				}
+			}
+		} @else if (map_has_key($breakpoint, max))
+		{
+			@media (max-width: #{map_get($breakpoint,max)}) and (orientation: $orientation)
+			{
+				@content;
+			}
+		}
+	} @else
+	{
+		@error "Unfortunately, no value could be retrieved from `#{$name}`. "
+		+ "Available breakpoints are: #{map-keys($breakpoints)}.";
 	}
 }
