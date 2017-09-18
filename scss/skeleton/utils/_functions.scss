@@ -19,12 +19,12 @@
 @function generate-columns-list($type)
 {
 	$list: ();
-	
+
 	@for $i from 1 through map_get($config, columns)
 	{
 		$list: append($list, '.#{$type}#{$i}', comma);
 	}
-	
+
 	@return $list;
 }
 
@@ -64,9 +64,9 @@
 	{
 		@return null;
 	}
-	
+
 	@return map-deep-get($color-palette, $keys...);
-	
+
 }
 
 @function z-index($keys...)
@@ -75,6 +75,60 @@
 	{
 		@return null;
 	}
-	
+
 	@return map-deep-get($z-index, $keys...);
+}
+
+@function pow($number, $exponent)
+{
+	$value: 1;
+
+	@if $exponent > 0
+	{
+		@for $i from 1 through $exponent
+		{
+			$value: $value * $number;
+		}
+	}
+
+	@return $value;
+}
+
+@function luminance($color)
+{
+	$colors: (
+		'red': red($color),
+		'green': green($color),
+		'blue': blue($color)
+	);
+
+	@each $name, $value in $colors
+	{
+		$adjusted: 0;
+		$value: $value / 255;
+
+		@if $value < 0.03928
+		{
+			$value: $value / 12.92;
+		} @else
+		{
+			$value: ($value + .055) / 1.055;
+			$value: pow($value, 2.4);
+		}
+
+		$colors: map-merge($colors, ($name: $value));
+	}
+
+	@return (map-get($colors, 'red') * .2126) + (map-get($colors, 'green') * .7152) + (map-get($colors, 'blue') * .0722);
+}
+
+@function setColorBasedOnBackground($background,$callbackColorTrue: rgba(#000,.7),$callbackColorFalse: #ffffff)
+{
+	@if (luminance($background) > 0.55)
+	{
+		@return $callbackColorTrue;
+	} @else
+	{
+		@return $callbackColorFalse;
+	}
 }
