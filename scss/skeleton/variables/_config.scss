@@ -3,7 +3,7 @@
 $config: (
 	columns: 12,
 	gutter: 30px,
-	max-width: 1890px,
+	max-width: 1680px,
 	layouts: (
 		xs: (
 			max: 599px,
@@ -42,20 +42,41 @@ $config: (
 			min: 1440px,
 			max: 1919px,
 		),
+		lgmin: (
+			min:1440px,
+		),
+		lgmax: (
+			max:1919px,
+		),
 		md: (
 			min: 1260px,
 			max: 1439px,
 		),
-		desktop: (
-			min: 1260px
+		mdmin: (
+			min:1260px,
+		),
+		mdmax: (
+			max:1439px,
 		),
 		tb: (
 			min: 1024px,
 			max: 1259px,
 		),
+		tbmin: (
+			min:1024px,
+		),
+		tbmax: (
+			max:1259px,
+		),
 		sm: (
 			min: 600px,
 			max: 1023px,
+		),
+		smmin: (
+			min:600px,
+		),
+		smmax: (
+			max:1023px,
 		),
 		tablets: (
 			min: 600px,
@@ -74,7 +95,7 @@ $config: (
 	),
 	fixed-layout: true,
 	rem-unit: false,
-	font-path: '/assets/fonts/',
-	img-path: '/assets/img/',
-	default-font-family: 'Open Sans'
+	font-path: '../assets/fonts/',
+	img-path: '../../assets/img/',
+	default-font-family: 'OpenSans'
 ) !default;
