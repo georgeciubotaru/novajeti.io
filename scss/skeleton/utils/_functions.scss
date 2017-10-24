@@ -40,7 +40,7 @@
 
 @function svg($string)
 {
-	@return img-url($string, 'svg');
+	@return img-url($string,svg);
 }
 
 @function png($string)
@@ -50,12 +50,12 @@
 
 @function jpg($string)
 {
-	@return img-url($string, 'jpg')
+	@return img-url($string,jpg);
 }
 
 @function column-width($container-width, $columns:map-get($config,columns), $gutter:map_get($config,gutter))
 {
-	@return ($container-width - $gutter * ($columns - 1)) / $columns;
+	@return ($container-width - $gutter * ($columns - 1) - 30) / $columns;
 }
 
 @function color($keys...)
