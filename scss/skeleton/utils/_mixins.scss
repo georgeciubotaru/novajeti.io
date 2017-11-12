@@ -1,169 +1,131 @@
-@mixin clear-fix()
-{
-	&:before,
-	&:after
-	{
-		content: ''; // 1
-		display: table; // 2
-	}
-	
-	&:after
-	{
-		clear: both;
-	}
+@mixin clear-fix() {
+    &:before,
+    &:after {
+        content: ''; // 1
+        display: table; // 2
+    }
+
+    &:after {
+        clear: both;
+    }
 }
 
-@mixin font-item($name, $type, $weight)
-{
-	$path: #{map_get($config,font-path) + capitalize($name)+ '/'};
-	
-	@font-face
-	{
-		font-family: '#{capitalize($name)}';
-		font-weight: $weight;
-		src: font-url('#{$path}#{$name}-#{$type}.eot');
-		src: font-url('#{$path}#{$name}-#{$type}.eot?#iefix') format('embedded-opentype'),
-		font-url('#{$path}#{$name}-#{$type}.woff') format('woff'),
-		font-url('#{$path}#{$name}-#{$type}.ttf') format('truetype'),
-		font-url('#{$path}#{$name}-#{$type}.svg##{$name}') format('svg');
-		font-style: normal;
-		font-display: swap;
-	}
+@mixin truncate() {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-@mixin font-details($size, $weight, $font-family:map_get($config,default-font-family))
-{
-	font-family: $font-family;
-	@if (map_get($config, rem-unit))
-	{
-		font-size: $size;
-		font-size: use-rem($size);
-	} @else
-	{
-		font-size: $size;
-	}
-	font-weight: $weight;
+@mixin font-item($name, $type, $weight) {
+    $path: #{map_get($config, font-path) + capitalize($name)+ '/'};
+
+    @font-face {
+        font-family: '#{capitalize($name)}';
+        font-weight: $weight;
+        src: font-url('#{$path}#{$name}-#{$type}.eot');
+        src: font-url('#{$path}#{$name}-#{$type}.eot?#iefix') format('embedded-opentype'),
+            font-url('#{$path}#{$name}-#{$type}.woff') format('woff'),
+            font-url('#{$path}#{$name}-#{$type}.ttf') format('truetype'),
+            font-url('#{$path}#{$name}-#{$type}.svg##{$name}') format('svg');
+        font-style: normal;
+        font-display: swap;
+    }
 }
 
-@mixin img-url($string, $extension:'png')
-{
-	background-image: img-url($string,$extension);
-	
-	@media(min-device-pixel-ratio: 2), (min-resolution: 192dpi)
-	{
-		$string: #{$string + '@2x'};
-		background-image: img-url($string,$extension);
-	}
+@mixin font-details($size, $weight, $font-family:map_get($config,default-font-family)) {
+    font-family: $font-family;
+    @if (map_get($config, rem-unit)) {
+        font-size: $size;
+        font-size: use-rem($size);
+    } @else {
+        font-size: $size;
+    }
+    font-weight: $weight;
 }
 
-@mixin svg($string)
-{
-	@include img-url($string, svg);
+@mixin img-url($string, $extension:'png') {
+    background-image: img-url($string, $extension);
+
+    @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        $string: #{$string + '@2x'};
+        background-image: img-url($string, $extension);
+    }
 }
 
-@mixin png($string)
-{
-	@include img-url($string);
+@mixin svg($string) {
+    @include img-url($string, svg);
 }
 
-@mixin jpg($string)
-{
-	@include img-url($string, jpg);
+@mixin png($string) {
+    @include img-url($string);
 }
 
-@mixin placeholder()
-{
-	&::-webkit-input-placeholder
-	{
-		@content
-	}
-	&:-moz-placeholder
-	{
-		@content
-	}
-	&::-moz-placeholder
-	{
-		@content
-	}
-	&:-ms-input-placeholder
-	{
-		@content
-	}
+@mixin jpg($string) {
+    @include img-url($string, jpg);
 }
 
-@mixin push-auto()
-{
-	margin:
-	{
-		left: auto;
-		right: auto;
-	}
+@mixin placeholder() {
+    &::-webkit-input-placeholder {
+        @content;
+    }
+    &:-moz-placeholder {
+        @content;
+    }
+    &::-moz-placeholder {
+        @content;
+    }
+    &:-ms-input-placeholder {
+        @content;
+    }
+}
+
+@mixin push-auto() {
+    margin: {
+        left: auto;
+        right: auto;
+    }
 }
 
 // Media breakpoint mixin
-@mixin breakpoint($name, $orientation: false, $breakpoints: map_get($config, media-breakpoints))
-{
-	@if (map_has_key($breakpoints, $name))
-	{
-		$breakpoint: map_get($breakpoints, $name);
+@mixin breakpoint($name, $orientation: false, $breakpoints: map_get($config, media-breakpoints)) {
+    @if (map_has_key($breakpoints, $name)) {
+        $breakpoint: map_get($breakpoints, $name);
 
-		@if (map_has_key($breakpoint, min))
-		{
-			@if (map_has_key($breakpoint, max))
-			{
-				@if($orientation != false)
-				{
-					@media (min-width: #{map_get($breakpoint,min)}) and (max-width: #{map_get($breakpoint,max)}) and (orientation: $orientation)
-					{
-						@content;
-					}
-				}
-				@else
-				{
-					@media (min-width: #{map_get($breakpoint,min)}) and (max-width: #{map_get($breakpoint,max)})
-					{
-						@content;
-					}
-				}
-
-
-			} @else
-			{
-				@if($orientation != false)
-				{
-					@media (min-width: #{map_get($breakpoint,min)}) and (orientation: $orientation)
-					{
-						@content;
-					}
-				}
-				@else
-				{
-					@media (min-width: #{map_get($breakpoint,min)})
-					{
-						@content;
-					}
-				}
-			}
-		} @else if (map_has_key($breakpoint, max))
-		{
-			@if($orientation != false)
-			{
-				@media (max-width: #{map_get($breakpoint,max)}) and (orientation: $orientation)
-				{
-					@content;
-				}
-			}
-			@else
-			{
-				@media (max-width: #{map_get($breakpoint,max)})
-				{
-					@content;
-				}
-			}
-		}
-	} @else
-	{
-		@error "Unfortunately, no value could be retrieved from `#{$name}`. "
-		+ "Available breakpoints are: #{map-keys($breakpoints)}.";
-	}
+        @if (map_has_key($breakpoint, min)) {
+            @if (map_has_key($breakpoint, max)) {
+                @if ($orientation != false) {
+                    @media (min-width: #{map_get($breakpoint,min)}) and (max-width: #{map_get($breakpoint,max)}) and (orientation: $orientation) {
+                        @content;
+                    }
+                } @else {
+                    @media (min-width: #{map_get($breakpoint,min)}) and (max-width: #{map_get($breakpoint,max)}) {
+                        @content;
+                    }
+                }
+            } @else {
+                @if ($orientation != false) {
+                    @media (min-width: #{map_get($breakpoint,min)}) and (orientation: $orientation) {
+                        @content;
+                    }
+                } @else {
+                    @media (min-width: #{map_get($breakpoint,min)}) {
+                        @content;
+                    }
+                }
+            }
+        } @else if (map_has_key($breakpoint, max)) {
+            @if ($orientation != false) {
+                @media (max-width: #{map_get($breakpoint,max)}) and (orientation: $orientation) {
+                    @content;
+                }
+            } @else {
+                @media (max-width: #{map_get($breakpoint,max)}) {
+                    @content;
+                }
+            }
+        }
+    } @else {
+        @error "Unfortunately,
+            no value could be retrieved from `#{$name}`. " + "Available breakpoints are: #{map-keys($breakpoints)}.";
+    }
 }
