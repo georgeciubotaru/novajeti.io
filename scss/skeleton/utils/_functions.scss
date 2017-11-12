@@ -1,134 +1,104 @@
-@import "map_functions";
+@import 'map_functions';
 
-@function capitalize($string)
-{
-	@return to_upper_case(str_slice($string,1,1)) + str_slice($string,2);
+@function capitalize($string) {
+    @return to_upper_case(str_slice($string,1,1)) + str_slice($string,2);
 }
 
-@function transparent()
-{
-	@return rgba(0, 0, 0, 0);
+@function transparent() {
+    @return rgba(0, 0, 0, 0);
 }
 
-@function use-rem($size)
-{
-	$_rem-size: $size / 16px;
-	@return $_rem-size * 1rem;
+@function use-rem($size) {
+    $_rem-size: $size / 16px;
+    @return $_rem-size * 1rem;
 }
 
-@function generate-columns-list($type)
-{
-	$list: ();
+@function generate-columns-list($type) {
+    $list: ();
 
-	@for $i from 1 through map_get($config, columns)
-	{
-		$list: append($list, '.#{$type}#{$i}', comma);
-	}
+    @for $i from 1 through map_get($config, columns) {
+        $list: append($list, '.#{$type}#{$i}', comma);
+    }
 
-	@return $list;
+    @return $list;
 }
 
-@function img-url($string,$extension:'png')
-{
-	@return url('#{map_get($config,img-path)}#{$string}.#{$extension}')
+@function img-url($string,$extension:'png') {
+    @return url('#{map_get($config,img-path)}#{$string}.#{$extension}');
 }
 
-@function font-url($string)
-{
-	@return url('#{$string}');
+@function font-url($string) {
+    @return url('#{$string}');
 }
 
-@function svg($string)
-{
-	@return img-url($string,svg);
+@function svg($string) {
+    @return img-url($string,svg);
 }
 
-@function png($string)
-{
-	@return img-url($string);
+@function png($string) {
+    @return img-url($string);
 }
 
-@function jpg($string)
-{
-	@return img-url($string,jpg);
+@function jpg($string) {
+    @return img-url($string,jpg);
 }
 
-@function column-width($container-width, $columns:map-get($config,columns), $gutter:map_get($config,gutter))
-{
-	@return ($container-width - $gutter * ($columns - 1) - 30) / $columns;
+@function column-width($container-width, $columns:map-get($config,columns), $gutter:map_get($config,gutter)) {
+    @return ($container-width - $gutter * ($columns - 1) - 30) / $columns;
 }
 
-@function color($keys...)
-{
-	@if not map_has_keys($color-palette, $keys...)
-	{
-		@return null;
-	}
+@function color($keys...) {
+    @if not map_has_keys($color-palette, $keys...) {
+        @return null;
+    }
 
-	@return map-deep-get($color-palette, $keys...);
-
+    @return map-deep-get($color-palette, $keys...);
 }
 
-@function z-index($keys...)
-{
-	@if not map_has_keys($z-index, $keys...)
-	{
-		@return null;
-	}
+@function z-index($keys...) {
+    @if not map_has_keys($z-index, $keys...) {
+        @return null;
+    }
 
-	@return map-deep-get($z-index, $keys...);
+    @return map-deep-get($z-index, $keys...);
 }
 
-@function pow($number, $exponent)
-{
-	$value: 1;
+@function pow($number, $exponent) {
+    $value: 1;
 
-	@if $exponent > 0
-	{
-		@for $i from 1 through $exponent
-		{
-			$value: $value * $number;
-		}
-	}
+    @if $exponent > 0 {
+        @for $i from 1 through $exponent {
+            $value: $value * $number;
+        }
+    }
 
-	@return $value;
+    @return $value;
 }
 
-@function luminance($color)
-{
-	$colors: (
-		'red': red($color),
-		'green': green($color),
-		'blue': blue($color)
-	);
+@function luminance($color) {
+    $colors: ('red': red($color), 'green': green($color), 'blue': blue($color));
 
-	@each $name, $value in $colors
-	{
-		$adjusted: 0;
-		$value: $value / 255;
+    @each $name, $value in $colors {
+        $adjusted: 0;
+        $value: $value / 255;
 
-		@if $value < 0.03928
-		{
-			$value: $value / 12.92;
-		} @else
-		{
-			$value: ($value + .055) / 1.055;
-			$value: pow($value, 2.4);
-		}
+        @if $value < 0.03928 {
+            $value: $value / 12.92;
+        } @else {
+            $value: ($value + 0.055) / 1.055;
+            $value: pow($value, 2.4);
+        }
 
-		$colors: map-merge($colors, ($name: $value));
-	}
+        $colors: map-merge($colors,  ($name: $value));
+    }
 
-	@return (map-get($colors, 'red') * .2126) + (map-get($colors, 'green') * .7152) + (map-get($colors, 'blue') * .0722);
+    @return (map-get($colors, 'red') * .2126) + (map-get($colors, 'green') * .7152) + (map-get($colors, 'blue') * .0722);
 }
 
-@function setColorBasedOnBackground($background,$callbackColorTrue: rgba(#000,.7),$callbackColorFalse: #ffffff)
-{
-	@if (luminance($background) > 0.55)
-	{
-		@return $callbackColorTrue;
-	} @else
-	{
-		@return $callbackColorFalse;
-	}
+@function setColorBasedOnBackground($background,$callbackColorTrue: rgba(#000,0.7),$callbackColorFalse: #ffffff) {
+    @if (luminance($background) > 0.55) {
+        @return $callbackColorTrue;
+    } @else {
+        @return $callbackColorFalse;
+    }
 }
