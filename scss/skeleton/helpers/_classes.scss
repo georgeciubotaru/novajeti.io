@@ -1,39 +1,42 @@
-@each $name, $value in $text-alignments
-{
-	[class*='-#{$name}']
-	{
-		text-align: $value;
-	}
+@each $name, $value in $text-alignments {
+    [class*='-#{$name}'] {
+        text-align: $value;
+    }
 }
 
-@each $name, $value in $color-types
-{
-	[class*='-#{$name}']
-	{
-		background-color: $value;
-	}
-	
-	[class*='#{$name}']
-	{
-		color: $value;
-	}
+@each $name, $value in $color-types {
+    [class*='-#{$name}'] {
+        background-color: $value;
+    }
+
+    [class*='#{$name}'] {
+        color: $value;
+    }
 }
 
-.uppercase
-{
-	text-transform: uppercase;
+.uppercase {
+    text-transform: uppercase;
 }
 
-.no-bullet
-{
-	list-style-type: none;
+.no-bullet {
+    list-style-type: none;
 }
 
-.inline
-{
-	li
-	{
-		display: inline-block;
-	}
+.inline {
+    li {
+        display: inline-block;
+    }
 }
 
+.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+@each $class in map-keys(map-get($config, layouts)) {
+    .no-gutters > .#{$class},
+    .no-gutters > [class*='#{$class}'] {
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
