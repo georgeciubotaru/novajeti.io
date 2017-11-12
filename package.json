@@ -23,8 +23,5 @@
   "bugs": {
     "url": "https://github.com/georgeciubotaru/novajeti.io/issues"
   },
-  "homepage": "https://github.com/georgeciubotaru/novajeti.io#readme",
-  "dependencies": {
-    "normalize.css": "^7.0.0"
-  }
+  "homepage": "https://github.com/georgeciubotaru/novajeti.io#readme"
 }
