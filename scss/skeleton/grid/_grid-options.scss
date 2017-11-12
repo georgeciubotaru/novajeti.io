@@ -1,0 +1,59 @@
+@mixin set-default-container($gutter: map_get($config, gutter)) {
+    position: relative;
+    max-width: map_get($config, max-width);
+    padding-right: ceil(($gutter / 2));
+    padding-left: floor(($gutter / 2));
+    @include push-auto;
+    @include clear-fix;
+}
+
+@mixin make-row($gutter: map_get($config, gutter)) {
+    @if (map-get($config,flex-layout)) {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    }
+    margin-right: floor(($gutter / -2));
+    margin-left: ceil(($gutter / -2));
+    @include clear-fix;
+}
+
+@mixin make-columns($type, $i: 1, $gutter: map_get($config, gutter), $columns : map_get($config, columns)) {
+    #{generate-columns-list($type)} {
+        position: relative;
+
+        @if (map-get($config, flex-layout)) {
+            -webkit-flex-basis: 0;
+            -ms-flex-preferred-size: 0;
+            flex-basis: 0;
+            -webkit-box-flex: 1;
+            -webkit-flex-grow: 1;
+            -ms-flex-positive: 1;
+            flex-grow: 1;
+            max-width: 100%;
+        } @else {
+            float: left;
+        }
+
+        min-height: 1px;
+        padding-right: floor(($gutter / 2));
+        padding-left: ceil(($gutter / 2));
+    }
+
+    @each $item in generate-columns-list($type) {
+        #{$item} {
+            @if (map-get($config, flex-layout)) {
+                -webkit-box-flex: 0;
+                flex: 0 0 percentage(($i / $columns));
+                max-width: percentage(($i / $columns));
+            } @else {
+                width: percentage(($i / $columns));
+            }
+        }
+        $i: $i+1;
+    }
+}
